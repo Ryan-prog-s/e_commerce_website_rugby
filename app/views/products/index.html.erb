@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Products</h1>
+
+<% if current_user&.seller %>
+  <%= link_to 'Create New Product', new_product_path, class: 'btn btn-primary' %>
+<% else %>
+  <p>You need to be a seller to create a new product.</p>
+  <% if current_user %>
+    <%= button_to 'Become a Seller', become_seller_path, method: :post, class: 'btn btn-primary' %>
+  <% else %>
+    <%= link_to 'Login or Register to become a Seller', login_path, class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
+
+<% @products.each do |product| %>
+  <div>
+    <h2><%= link_to product.name, product_path(product) %></h2>
+    <p><%= product.description %></p>
+    <p>Price: <%= product.price %></p>
+    <p>Stock: <%= product.stock %></p>
+  </div>
+<% end %>
