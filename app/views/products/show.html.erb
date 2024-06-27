@@ -1,17 +1,33 @@
-<h1><%= @product.name %></h1>
-<p><%= @product.description %></p>
-<p>Price: <%= @product.price %></p>
-<p>Stock: <%= @product.stock %></p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-body">
+          <h1 class="card-title text-center mb-4">Titre : <%= @product.name %></h1>
+          <h3 class="card-subtitle text-center mb-4">Description : <%= @product.description %></h3>
+          <div class="text-center mb-4">
+            <h5>Prix: <%= @product.price %>€</h5>
+            <h5>Stock: <%= @product.stock %></h5>
+          </div>
 
-<% if current_user&.buyer %>
-  <%= form_with url: orders_path do |form| %>
-    <%= form.hidden_field :product_id, value: @product.id %>
-    <div>
-      <%= form.label :quantity %>
-      <%= form.number_field :quantity, value: 1, min: 1, max: @product.stock %>
+          <%# Formulaire d'achat si l'utilisateur est un acheteur %>
+          <% if current_user&.buyer %>
+            <%= form_with url: orders_path do |form| %>
+              <%= form.hidden_field :product_id, value: @product.id %>
+              <div class="form-group text-center">
+                <%= form.label :quantity %>
+                <%= form.number_field :quantity, value: 1, min: 1, max: @product.stock %>
+              </div>
+              <div class="text-center">
+                <%= form.submit 'Buy', class: 'btn btn-primary btn-lg' %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div>
-      <%= form.submit 'Buy' %>
-    </div>
-  <% end %>
-<% end %>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <a class="btn btn-primary" href= "/products">Retour a la page produit</a>
+  </div>
+</div>

@@ -1,23 +1,44 @@
-<p style="color: green"><%= notice %></p>
+<div class="alert alert-success" role="alert">
+  <%= notice %>
+</div>
 
-<h1>Products</h1>
+<div class="container text-center">
 
-<% if current_user&.seller %>
-  <%= link_to 'Create New Product', new_product_path, class: 'btn btn-primary' %>
-<% else %>
-  <p>You need to be a seller to create a new product.</p>
-  <% if current_user %>
-    <%= button_to 'Become a Seller', become_seller_path, method: :post, class: 'btn btn-primary' %>
+  <h1>Welcome on this E-Commerce Website</h1>
+
+  <h2>Products</h2>
+
+  <% if current_user&.seller %>
+    <%= link_to 'Create New Product', new_product_path, class: 'btn btn-primary' %>
   <% else %>
-    <%= link_to 'Login or Register to become a Seller', login_path, class: 'btn btn-primary' %>
+    <div class="d-flex justify-content-center">
+      <p class="mr-2">You need to be a seller to create a new product.</p>
+      <% if current_user %>
+        <%= button_to 'Become a Seller', become_seller_path, method: :post, class: 'btn btn-primary' %>
+      <% else %>
+        <%= link_to 'Login or Register to become a Seller', login_path, class: 'btn btn-primary' %>
+      <% end %>
+    </div>
   <% end %>
-<% end %>
 
-<% @products.each do |product| %>
-  <div>
-    <h2><%= link_to product.name, product_path(product) %></h2>
-    <p><%= product.description %></p>
-    <p>Price: <%= product.price %></p>
-    <p>Stock: <%= product.stock %></p>
-  </div>
-<% end %>
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= link_to product.name, product_path(product) %></td>
+          <td><%= product.description %></td>
+          <td><%= product.price %></td>
+          <td><%= product.stock %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
