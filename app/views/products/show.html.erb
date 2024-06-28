@@ -12,7 +12,7 @@
 
           <%# Formulaire d'achat si l'utilisateur est un acheteur %>
           <% if current_user&.buyer %>
-            <%= form_with url: orders_path do |form| %>
+            <%= form_with model: Order.new, url: orders_path, method: :post do |form| %>
               <%= form.hidden_field :product_id, value: @product.id %>
               <div class="form-group text-center">
                 <%= form.label :quantity %>
@@ -28,6 +28,6 @@
     </div>
   </div>
   <div class="row justify-content-center mt-4">
-    <a class="btn btn-primary" href= "/products">Retour a la page produit</a>
+    <a class="btn btn-primary" href="/products">Retour à la page produit</a>
   </div>
 </div>
